@@ -68,7 +68,10 @@ function Projects() {
         const sorted = [...repos].sort((a, b) => {
           const aFeat = isFeatured(a.name) ? 0 : 1
           const bFeat = isFeatured(b.name) ? 0 : 1
-          return aFeat - bFeat
+          if (aFeat !== bFeat) return aFeat - bFeat
+          const aDeploy = a.homepage?.trim() ? 0 : 1
+          const bDeploy = b.homepage?.trim() ? 0 : 1
+          return aDeploy - bDeploy
         })
         setProjects(sorted)
       })
