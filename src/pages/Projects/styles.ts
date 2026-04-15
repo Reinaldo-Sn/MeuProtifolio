@@ -41,9 +41,12 @@ export const Grid = styled.div`
   }
 `
 
-export const ProjectCard = styled.div`
-  background-color: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+export const ProjectCard = styled.div<{ $featured?: boolean }>`
+  position: relative;
+  background-color: ${({ $featured }) =>
+    $featured ? 'rgba(255, 255, 255, 0.08)' : 'rgba(255, 255, 255, 0.05)'};
+  border: 1px solid ${({ $featured }) =>
+    $featured ? 'rgba(255, 255, 255, 0.5)' : 'rgba(255, 255, 255, 0.1)'};
   border-radius: 8px;
   padding: 24px;
   display: flex;
@@ -52,10 +55,28 @@ export const ProjectCard = styled.div`
   gap: 16px;
   transition: background-color 0.3s ease, border-color 0.3s ease;
 
+  ${({ $featured }) =>
+    $featured &&
+    `box-shadow: 0 0 16px rgba(255, 255, 255, 0.06);`}
+
   &:hover {
-    background-color: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.3);
+    background-color: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.4);
   }
+`
+
+export const FeaturedBadge = styled.span`
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #000;
+  background-color: #fff;
+  padding: 3px 8px;
+  border-radius: 4px;
 `
 
 export const ProjectInfo = styled.div`
@@ -69,6 +90,12 @@ export const ProjectName = styled.h3`
   font-weight: 700;
   color: #fff;
   text-transform: capitalize;
+`
+
+export const ProjectDescription = styled.p`
+  font-size: 13px;
+  color: #aaa;
+  line-height: 1.6;
 `
 
 export const ProjectFooter = styled.div`

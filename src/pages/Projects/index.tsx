@@ -5,8 +5,10 @@ import {
   PageTitle,
   Grid,
   ProjectCard,
+  FeaturedBadge,
   ProjectInfo,
   ProjectName,
+  ProjectDescription,
   ProjectFooter,
   ProjectLanguage,
   ProjectLinks,
@@ -14,6 +16,8 @@ import {
   LoadingText,
   EmptyText,
 } from './styles'
+
+const featuredNames = ['EFood', 'Minha-lista-de-contatos', 'Deadpool-', 'EventMark', 'minhas-tarefas']
 
 const languageColors: Record<string, string> = {
   JavaScript: '#f1e05a',
@@ -46,6 +50,12 @@ interface Repo {
   language: string | null
 }
 
+function isFeatured(name: string) {
+  return featuredNames.some(
+    (f) => f.toLowerCase() === name.toLowerCase()
+  )
+}
+
 function Projects() {
   const [projects, setProjects] = useState<Repo[]>([])
   const [loading, setLoading] = useState(true)
@@ -55,8 +65,12 @@ function Projects() {
     fetch('https://api.github.com/users/Reinaldo-Sn/repos?per_page=100')
       .then((res) => res.json())
       .then((repos: Repo[]) => {
-        const published = repos.filter((r) => r.homepage && r.homepage.trim() !== '')
-        setProjects(published)
+        const sorted = [...repos].sort((a, b) => {
+          const aFeat = isFeatured(a.name) ? 0 : 1
+          const bFeat = isFeatured(b.name) ? 0 : 1
+          return aFeat - bFeat
+        })
+        setProjects(sorted)
       })
       .catch(() => setError(true))
       .finally(() => setLoading(false))
@@ -64,35 +78,44 @@ function Projects() {
 
   return (
     <PageLayout background={fourthBg}>
-      <PageTitle>Projetos</PageTitle>
-      {loading && <LoadingText>Carregando projetos...</LoadingText>}
-      {!loading && error && <EmptyText>Erro ao carregar projetos. Tente novamente.</EmptyText>}
+      <PageTitle>Projects</PageTitle>
+      {loading && <LoadingText>Loading projects...</LoadingText>}
+      {!loading && error && <EmptyText>Failed to load projects. Try again.</EmptyText>}
       {!loading && !error && projects.length === 0 && (
-        <EmptyText>Nenhum projeto publicado encontrado.</EmptyText>
+        <EmptyText>No projects found.</EmptyText>
       )}
       <Grid>
-        {projects.map((project) => (
-          <ProjectCard key={project.id}>
-            <ProjectInfo>
-              <ProjectName>{project.name.replace(/-/g, ' ')}</ProjectName>
-            </ProjectInfo>
-            <ProjectFooter>
-              {project.language && (
-                <ProjectLanguage $color={languageColors[project.language] ?? '#aaa'}>
-                  {project.language}
-                </ProjectLanguage>
-              )}
-              <ProjectLinks>
-                <IconLink href={project.html_url} target="_blank" rel="noreferrer" title="GitHub">
-                  GitHub
-                </IconLink>
-                <IconLink href={project.homepage} target="_blank" rel="noreferrer" title="Ver projeto">
-                  Ver projeto →
-                </IconLink>
-              </ProjectLinks>
-            </ProjectFooter>
-          </ProjectCard>
-        ))}
+        {projects.map((project) => {
+          const featured = isFeatured(project.name)
+          return (
+            <ProjectCard key={project.id} $featured={featured}>
+              {featured && <FeaturedBadge>Featured</FeaturedBadge>}
+              <ProjectInfo>
+                <ProjectName>{project.name.replace(/-/g, ' ')}</ProjectName>
+                {project.description && (
+                  <ProjectDescription>{project.description}</ProjectDescription>
+                )}
+              </ProjectInfo>
+              <ProjectFooter>
+                {project.language && (
+                  <ProjectLanguage $color={languageColors[project.language] ?? '#aaa'}>
+                    {project.language}
+                  </ProjectLanguage>
+                )}
+                <ProjectLinks>
+                  <IconLink href={project.html_url} target="_blank" rel="noreferrer">
+                    GitHub
+                  </IconLink>
+                  {project.homepage && project.homepage.trim() !== '' && (
+                    <IconLink href={project.homepage} target="_blank" rel="noreferrer">
+                      Live →
+                    </IconLink>
+                  )}
+                </ProjectLinks>
+              </ProjectFooter>
+            </ProjectCard>
+          )
+        })}
       </Grid>
     </PageLayout>
   )
