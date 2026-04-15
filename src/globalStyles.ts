@@ -18,6 +18,7 @@ const GlobalStyles = createGlobalStyle`
     font-size: 16px;
     color: ${colors.text.primary};
     overflow: hidden;
+    background-color: #000;
   }
 
   a {

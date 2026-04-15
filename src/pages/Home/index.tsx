@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import { TypeAnimation } from 'react-type-animation'
 import {
   HomeWrapper,
   ContentBox,
@@ -19,7 +20,22 @@ function Home() {
           <img src="https://github.com/Reinaldo-Sn.png" alt="Reinaldo Sn" />
         </AuthorImage>
         <TextContent>
-          <Greeting>Olá, eu sou Reinaldo</Greeting>
+          <Greeting>
+            <TypeAnimation
+              sequence={[
+                "Hi, I'm Reinaldo",
+                2000,
+                'Full Stack Developer',
+                2000,
+                'Python Developer',
+                2000,
+                'React Developer',
+                2000,
+              ]}
+              speed={50}
+              repeat={Infinity}
+            />
+          </Greeting>
           <Subtitle>
             Desenvolvedor apaixonado por criar experiências digitais incríveis.
             Focado em código limpo, performance e design moderno.

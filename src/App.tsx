@@ -5,6 +5,17 @@ import Home from './pages/Home'
 import About from './pages/About'
 import Projects from './pages/Projects'
 import Contact from './pages/Contact'
+import firstBg from './assets/images/first_bg.jpg'
+import secondBg from './assets/images/second_bg.jpg'
+import fourthBg from './assets/images/fourth_bg.jpg'
+import fifthBg from './assets/images/fifth_bg.jpg'
+import sobreImg from './assets/images/sobre.jpg'
+
+const bgImages = [firstBg, secondBg, fourthBg, fifthBg, sobreImg]
+bgImages.forEach((src) => {
+  const img = new Image()
+  img.src = src
+})
 
 function App() {
   return (

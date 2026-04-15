@@ -1,5 +1,16 @@
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import firstBg from '../../assets/images/first_bg.jpg'
+
+const fadeSlideUp = keyframes`
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+`
 
 export const HomeWrapper = styled.main`
   width: 100vw;
@@ -86,6 +97,9 @@ export const Subtitle = styled.p`
   margin-bottom: 35px;
   line-height: 1.8;
   max-width: 480px;
+  animation: ${fadeSlideUp} 0.8s ease forwards;
+  animation-delay: 1.5s;
+  opacity: 0;
 
   @media (max-width: 1024px) {
     margin: 0 auto 35px;
