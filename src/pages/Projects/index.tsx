@@ -1,4 +1,10 @@
 import { useEffect, useState } from 'react'
+import type { IconType } from 'react-icons'
+import {
+  SiTypescript, SiJavascript, SiPython, SiHtml5, SiCss, SiVuedotjs,
+  SiRust, SiPhp, SiSwift, SiKotlin, SiDart, SiRuby, SiSvelte,
+} from 'react-icons/si'
+import { FaJava } from 'react-icons/fa'
 import PageLayout from '../../components/PageLayout'
 import fourthBg from '../../assets/images/fourth_bg.jpg'
 import {
@@ -10,35 +16,31 @@ import {
   ProjectName,
   ProjectDescription,
   ProjectFooter,
-  ProjectLanguage,
+  LangIcons,
+  LangIcon,
   ProjectLinks,
   IconLink,
   LoadingText,
   EmptyText,
 } from './styles'
 
-const featuredNames = ['EFood', 'Minha-lista-de-contatos', 'Deadpool-', 'EventMark', 'minhas-tarefas']
+const featuredNames = ['EFood', 'MyNET', 'bookstore']
 
-const languageColors: Record<string, string> = {
-  JavaScript: '#f1e05a',
-  TypeScript: '#3178c6',
-  Python: '#3572A5',
-  HTML: '#e34c26',
-  CSS: '#563d7c',
-  Java: '#b07219',
-  'C#': '#178600',
-  'C++': '#f34b7d',
-  C: '#555555',
-  Ruby: '#701516',
-  Go: '#00ADD8',
-  Rust: '#dea584',
-  PHP: '#4F5D95',
-  Swift: '#F05138',
-  Kotlin: '#A97BFF',
-  Dart: '#00B4AB',
-  Shell: '#89e051',
-  Vue: '#41b883',
-  Svelte: '#ff3e00',
+const languageIcons: Record<string, { Icon: IconType; color: string }> = {
+  TypeScript: { Icon: SiTypescript, color: '#3178c6' },
+  JavaScript: { Icon: SiJavascript, color: '#f1e05a' },
+  Python:     { Icon: SiPython,     color: '#3572A5' },
+  HTML:       { Icon: SiHtml5,      color: '#e34c26' },
+  CSS:        { Icon: SiCss,        color: '#563d7c' },
+  Vue:        { Icon: SiVuedotjs,   color: '#41b883' },
+  Java:       { Icon: FaJava,       color: '#b07219' },
+  Rust:       { Icon: SiRust,       color: '#dea584' },
+  PHP:        { Icon: SiPhp,        color: '#4F5D95' },
+  Swift:      { Icon: SiSwift,      color: '#F05138' },
+  Kotlin:     { Icon: SiKotlin,     color: '#A97BFF' },
+  Dart:       { Icon: SiDart,       color: '#00B4AB' },
+  Ruby:       { Icon: SiRuby,       color: '#701516' },
+  Svelte:     { Icon: SiSvelte,     color: '#ff3e00' },
 }
 
 interface Repo {
@@ -51,13 +53,12 @@ interface Repo {
 }
 
 function isFeatured(name: string) {
-  return featuredNames.some(
-    (f) => f.toLowerCase() === name.toLowerCase()
-  )
+  return featuredNames.some((f) => f.toLowerCase() === name.toLowerCase())
 }
 
 function Projects() {
   const [projects, setProjects] = useState<Repo[]>([])
+  const [repoLanguages, setRepoLanguages] = useState<Record<string, string[]>>({})
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
 
@@ -74,6 +75,34 @@ function Projects() {
           return aDeploy - bDeploy
         })
         setProjects(sorted)
+
+        const initial: Record<string, string[]> = {}
+        sorted.forEach((repo) => {
+          if (repo.language) initial[repo.name] = [repo.language]
+        })
+        setRepoLanguages(initial)
+
+        const featured = sorted.filter((r) => isFeatured(r.name))
+        Promise.all(
+          featured.map((repo) =>
+            fetch(`https://api.github.com/repos/Reinaldo-Sn/${repo.name}/languages`)
+              .then((res) => res.json())
+              .then((langs: Record<string, number>) => ({
+                name: repo.name,
+                languages: Object.keys(langs).slice(0, 2),
+              }))
+              .catch(() => ({
+                name: repo.name,
+                languages: repo.language ? [repo.language] : [],
+              }))
+          )
+        ).then((results) => {
+          setRepoLanguages((prev) => {
+            const map = { ...prev }
+            results.forEach(({ name, languages }) => { map[name] = languages })
+            return map
+          })
+        })
       })
       .catch(() => setError(true))
       .finally(() => setLoading(false))
@@ -90,6 +119,9 @@ function Projects() {
       <Grid>
         {projects.map((project) => {
           const featured = isFeatured(project.name)
+          const allLangs = repoLanguages[project.name] ??
+            (project.language ? [project.language] : [])
+          const langs = featured ? allLangs : allLangs.slice(0, 1)
           return (
             <ProjectCard key={project.id} $featured={featured}>
               {featured && <FeaturedBadge>Featured</FeaturedBadge>}
@@ -100,11 +132,18 @@ function Projects() {
                 )}
               </ProjectInfo>
               <ProjectFooter>
-                {project.language && (
-                  <ProjectLanguage $color={languageColors[project.language] ?? '#aaa'}>
-                    {project.language}
-                  </ProjectLanguage>
-                )}
+                <LangIcons>
+                  {langs.map((lang) => {
+                    const entry = languageIcons[lang]
+                    if (!entry) return null
+                    const { Icon, color } = entry
+                    return (
+                      <LangIcon key={lang} $color={color} title={lang}>
+                        <Icon />
+                      </LangIcon>
+                    )
+                  })}
+                </LangIcons>
                 <ProjectLinks>
                   <IconLink href={project.html_url} target="_blank" rel="noreferrer">
                     GitHub

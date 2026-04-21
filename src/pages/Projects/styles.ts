@@ -124,6 +124,19 @@ export const ProjectLanguage = styled.span<{ $color: string }>`
   }
 `
 
+export const LangIcons = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 8px;
+`
+
+export const LangIcon = styled.span<{ $color: string }>`
+  display: flex;
+  align-items: center;
+  font-size: 18px;
+  color: ${({ $color }) => $color};
+`
+
 export const ProjectLinks = styled.div`
   display: flex;
   gap: 12px;

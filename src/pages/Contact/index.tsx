@@ -1,8 +1,8 @@
 import { FaGithub, FaLinkedin } from 'react-icons/fa'
 import fifthBg from '../../assets/images/fifth_bg.jpg'
 import {
-  SiTypescript, SiJavascript, SiReact, SiNodedotjs,
-  SiHtml5, SiCss, SiPython, SiGit,
+  SiTypescript, SiJavascript, SiReact,
+  SiHtml5, SiCss, SiPython, SiGit, SiDjango, SiVuedotjs,
 } from 'react-icons/si'
 import PageLayout from '../../components/PageLayout'
 import {
@@ -33,12 +33,13 @@ const socials = [
 
 const techs = [
   { icon: <SiTypescript />, name: 'TypeScript', color: '#3178c6' },
-  { icon: <SiJavascript />, name: 'JavaScript', color: '#f1e05a' },
+  { icon: <SiPython />, name: 'Python', color: '#3572A5' },
   { icon: <SiReact />, name: 'React', color: '#61dafb' },
-  { icon: <SiNodedotjs />, name: 'Node.js', color: '#339933' },
+  { icon: <SiDjango />, name: 'Django', color: '#092e20' },
+  { icon: <SiJavascript />, name: 'JavaScript', color: '#f1e05a' },
+  { icon: <SiVuedotjs />, name: 'Vue', color: '#41b883' },
   { icon: <SiHtml5 />, name: 'HTML5', color: '#e34c26' },
   { icon: <SiCss />, name: 'CSS3', color: '#563d7c' },
-  { icon: <SiPython />, name: 'Python', color: '#3572A5' },
   { icon: <SiGit />, name: 'Git', color: '#F05032' },
 ]
 
