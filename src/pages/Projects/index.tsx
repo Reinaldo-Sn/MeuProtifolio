@@ -62,8 +62,12 @@ function Projects() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(false)
 
+  const ghHeaders: HeadersInit = import.meta.env.VITE_GITHUB_TOKEN
+    ? { Authorization: `Bearer ${import.meta.env.VITE_GITHUB_TOKEN}` }
+    : {}
+
   useEffect(() => {
-    fetch('https://api.github.com/users/Reinaldo-Sn/repos?per_page=100')
+    fetch('https://api.github.com/users/Reinaldo-Sn/repos?per_page=100', { headers: ghHeaders })
       .then((res) => res.json())
       .then((repos: Repo[]) => {
         const sorted = [...repos].sort((a, b) => {
@@ -85,7 +89,7 @@ function Projects() {
         const featured = sorted.filter((r) => isFeatured(r.name))
         Promise.all(
           featured.map((repo) =>
-            fetch(`https://api.github.com/repos/Reinaldo-Sn/${repo.name}/languages`)
+            fetch(`https://api.github.com/repos/Reinaldo-Sn/${repo.name}/languages`, { headers: ghHeaders })
               .then((res) => res.json())
               .then((langs: Record<string, number>) => ({
                 name: repo.name,
