@@ -24,8 +24,8 @@ export const SocialLink = styled.a`
   flex-direction: column;
   align-items: center;
   gap: 14px;
-  color: #fff;
-  transition: transform 0.3s ease, color 0.3s ease;
+  color: #aaa;
+  transition: transform 0.3s ease, color 0.3s ease, filter 0.3s ease;
 
   svg {
     font-size: 72px;
@@ -37,7 +37,8 @@ export const SocialLink = styled.a`
 
   &:hover {
     transform: translateY(-6px);
-    color: #ccc;
+    color: #e53935;
+    filter: drop-shadow(0 0 10px rgba(229, 57, 53, 0.5));
   }
 `
 
@@ -51,7 +52,8 @@ export const SocialLabel = styled.span`
 export const Divider = styled.hr`
   width: 60%;
   border: none;
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  border-top: 1px solid rgba(229, 57, 53, 0.3);
+  box-shadow: 0 0 8px rgba(229, 57, 53, 0.15);
 `
 
 export const TechSection = styled.div`
@@ -62,11 +64,12 @@ export const TechSection = styled.div`
 `
 
 export const TechTitle = styled.h3`
-  font-size: 14px;
+  font-size: 13px;
   font-weight: 600;
-  letter-spacing: 2px;
+  letter-spacing: 3px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.5);
+  color: #e53935;
+  text-shadow: 0 0 12px rgba(229, 57, 53, 0.4);
 `
 
 export const TechGrid = styled.div`

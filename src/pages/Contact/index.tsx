@@ -3,6 +3,7 @@ import fifthBg from '../../assets/images/fifth_bg.jpg'
 import {
   SiTypescript, SiJavascript, SiReact,
   SiHtml5, SiCss, SiPython, SiGit, SiDjango, SiVuedotjs,
+  SiRedux, SiDocker,
 } from 'react-icons/si'
 import PageLayout from '../../components/PageLayout'
 import {
@@ -27,20 +28,22 @@ const socials = [
   {
     icon: <FaLinkedin />,
     label: 'LinkedIn',
-    url: 'https://linkedin.com/in/',
+    url: 'https://www.linkedin.com/in/reinaldo-sn/',
   },
 ]
 
 const techs = [
   { icon: <SiTypescript />, name: 'TypeScript', color: '#3178c6' },
-  { icon: <SiPython />, name: 'Python', color: '#3572A5' },
-  { icon: <SiReact />, name: 'React', color: '#61dafb' },
-  { icon: <SiDjango />, name: 'Django', color: '#092e20' },
-  { icon: <SiJavascript />, name: 'JavaScript', color: '#f1e05a' },
-  { icon: <SiVuedotjs />, name: 'Vue', color: '#41b883' },
-  { icon: <SiHtml5 />, name: 'HTML5', color: '#e34c26' },
-  { icon: <SiCss />, name: 'CSS3', color: '#563d7c' },
-  { icon: <SiGit />, name: 'Git', color: '#F05032' },
+  { icon: <SiPython />,     name: 'Python',     color: '#3572A5' },
+  { icon: <SiReact />,      name: 'React',       color: '#61dafb' },
+  { icon: <SiDjango />,     name: 'Django',      color: '#44b78b' },
+  { icon: <SiJavascript />, name: 'JavaScript',  color: '#f1e05a' },
+  { icon: <SiVuedotjs />,   name: 'Vue',         color: '#41b883' },
+  { icon: <SiRedux />,      name: 'Redux',       color: '#764abc' },
+  { icon: <SiDocker />,     name: 'Docker',      color: '#2496ed' },
+  { icon: <SiHtml5 />,      name: 'HTML5',       color: '#e34c26' },
+  { icon: <SiCss />,        name: 'CSS3',        color: '#563d7c' },
+  { icon: <SiGit />,        name: 'Git',         color: '#F05032' },
 ]
 
 function Contact() {

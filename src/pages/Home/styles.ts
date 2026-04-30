@@ -1,6 +1,11 @@
 import styled, { keyframes } from 'styled-components'
 import firstBg from '../../assets/images/first_bg.jpg'
 
+const scanMove = keyframes`
+  from { background-position: 0 0; }
+  to   { background-position: 0 4px; }
+`
+
 const fadeSlideUp = keyframes`
   from {
     opacity: 0;
@@ -38,7 +43,7 @@ export const ContentBox = styled.div`
   height: 720px;
   margin-left: 40px;
   overflow-y: auto;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -59,20 +64,52 @@ export const ContentBox = styled.div`
 
 export const AuthorImage = styled.div`
   flex-shrink: 0;
+  position: relative;
+  width: 220px;
+  height: 220px;
+  border-radius: 20%;
+  overflow: hidden;
+  border: 2px solid rgba(255, 255, 255, 0.2);
 
   img {
-    width: 220px;
-    height: 220px;
-    border-radius: 20%;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
-    border: 4px solid #ffffff;
+    display: block;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      0deg,
+      rgba(0, 0, 0, 0.18) 0px,
+      rgba(0, 0, 0, 0.18) 1px,
+      transparent 1px,
+      transparent 4px
+    );
+    animation: ${scanMove} 2s linear infinite;
+    z-index: 2;
+    pointer-events: none;
+  }
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(
+      ellipse at center,
+      transparent 55%,
+      rgba(229, 57, 53, 0.18) 100%
+    );
+    z-index: 3;
+    pointer-events: none;
   }
 
   @media (max-width: 1024px) {
-    img {
-      width: 160px;
-      height: 160px;
-    }
+    width: 160px;
+    height: 160px;
   }
 `
 
@@ -83,11 +120,28 @@ export const TextContent = styled.div`
 export const Greeting = styled.h1`
   font-size: 42px;
   color: #fff;
-  margin-bottom: 20px;
+  margin-bottom: 8px;
   font-weight: 800;
 
   @media (max-width: 767px) {
     font-size: 28px;
+  }
+`
+
+export const RedName = styled.span`
+  color: #e53935;
+  text-shadow: 0 0 22px rgba(229, 57, 53, 0.45);
+`
+
+export const RoleText = styled.h2`
+  font-size: 22px;
+  color: #bbb;
+  margin-bottom: 28px;
+  font-weight: 500;
+  letter-spacing: 0.5px;
+
+  @media (max-width: 767px) {
+    font-size: 16px;
   }
 `
 
@@ -118,39 +172,40 @@ export const ButtonGroup = styled.div`
 
 export const PrimaryButton = styled.a`
   display: inline-block;
-  padding: 13px 32px;
-  background-color: #ffffff;
-  color: #000;
+  padding: 12px 30px;
+  background-color: #e53935;
+  color: #fff;
   font-weight: 700;
-  font-size: 14px;
-  letter-spacing: 1px;
+  font-size: 13px;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  border-radius: 4px;
-  transition: background-color 0.3s ease, transform 0.2s ease;
+  border: 2px solid #e53935;
+  transition: all 0.3s ease;
 
   &:hover {
-    background-color: #cccccc;
+    background-color: transparent;
+    color: #e53935;
     transform: translateY(-2px);
-    color: #000;
+    box-shadow: 0 0 18px rgba(229, 57, 53, 0.4);
   }
 `
 
 export const SecondaryButton = styled.a`
   display: inline-block;
-  padding: 13px 32px;
+  padding: 12px 30px;
   background-color: transparent;
-  color: #fff;
+  color: #aaa;
   font-weight: 700;
-  font-size: 14px;
-  letter-spacing: 1px;
+  font-size: 13px;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  border: 2px solid rgba(255, 255, 255, 0.3);
-  border-radius: 4px;
+  border: 2px solid rgba(255, 255, 255, 0.2);
   transition: all 0.3s ease;
 
   &:hover {
-    border-color: #ffffff;
-    color: #ffffff;
+    border-color: #e53935;
+    color: #e53935;
     transform: translateY(-2px);
+    box-shadow: 0 0 18px rgba(229, 57, 53, 0.2);
   }
 `

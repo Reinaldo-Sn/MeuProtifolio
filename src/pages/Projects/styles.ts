@@ -2,7 +2,8 @@ import styled from 'styled-components'
 
 export const PageTitle = styled.h2`
   font-size: 36px;
-  color: #fff;
+  color: #e53935;
+  text-shadow: 0 0 22px rgba(229, 57, 53, 0.45);
   font-weight: 800;
   margin-bottom: 40px;
   position: relative;
@@ -12,19 +13,10 @@ export const PageTitle = styled.h2`
     display: block;
     width: 50px;
     height: 3px;
-    background-color: #ffffff;
+    background-color: #e53935;
     margin-top: 12px;
+    box-shadow: 0 0 8px rgba(229, 57, 53, 0.5);
   }
-`
-
-export const LoadingText = styled.p`
-  color: #aaa;
-  font-size: 15px;
-`
-
-export const EmptyText = styled.p`
-  color: #aaa;
-  font-size: 15px;
 `
 
 export const Grid = styled.div`
@@ -41,55 +33,59 @@ export const Grid = styled.div`
   }
 `
 
-export const ProjectCard = styled.div<{ $featured?: boolean }>`
+export const ProjectCard = styled.div`
   position: relative;
-  background-color: ${({ $featured }) =>
-    $featured ? 'rgba(255, 255, 255, 0.08)' : 'rgba(255, 255, 255, 0.05)'};
-  border: 1px solid ${({ $featured }) =>
-    $featured ? 'rgba(255, 255, 255, 0.5)' : 'rgba(255, 255, 255, 0.1)'};
-  border-radius: 8px;
-  padding: 24px;
+  background-color: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(229, 57, 53, 0.2);
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  gap: 16px;
-  transition: background-color 0.3s ease, border-color 0.3s ease;
-
-  ${({ $featured }) =>
-    $featured &&
-    `box-shadow: 0 0 16px rgba(255, 255, 255, 0.06);`}
+  overflow: hidden;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
 
   &:hover {
-    background-color: rgba(255, 255, 255, 0.12);
-    border-color: rgba(255, 255, 255, 0.4);
+    border-color: rgba(229, 57, 53, 0.6);
+    box-shadow: 0 0 22px rgba(229, 57, 53, 0.12);
+  }
+
+  &:hover img {
+    transform: scale(1.05);
   }
 `
 
-export const FeaturedBadge = styled.span`
-  position: absolute;
-  top: 12px;
-  right: 12px;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-transform: uppercase;
-  color: #000;
-  background-color: #fff;
-  padding: 3px 8px;
-  border-radius: 4px;
+export const ProjectImage = styled.div`
+  width: 100%;
+  height: 160px;
+  overflow: hidden;
+  flex-shrink: 0;
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+`
+
+export const ProjectBody = styled.div`
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  gap: 14px;
 `
 
 export const ProjectInfo = styled.div`
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
 `
 
 export const ProjectName = styled.h3`
   font-size: 16px;
   font-weight: 700;
   color: #fff;
-  text-transform: capitalize;
 `
 
 export const ProjectDescription = styled.p`
@@ -104,24 +100,6 @@ export const ProjectFooter = styled.div`
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 10px;
-`
-
-export const ProjectLanguage = styled.span<{ $color: string }>`
-  font-size: 12px;
-  font-weight: 600;
-  color: ${({ $color }) => $color};
-  display: flex;
-  align-items: center;
-  gap: 6px;
-
-  &::before {
-    content: '';
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: ${({ $color }) => $color};
-  }
 `
 
 export const LangIcons = styled.div`
@@ -143,17 +121,25 @@ export const ProjectLinks = styled.div`
 `
 
 export const IconLink = styled.a`
+  display: flex;
+  align-items: center;
+  gap: 5px;
   font-size: 12px;
   font-weight: 600;
-  color: #fff;
+  color: #888;
   text-transform: uppercase;
   letter-spacing: 0.5px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.4);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
   padding-bottom: 2px;
-  transition: border-color 0.3s ease, color 0.3s ease;
+  transition: all 0.25s ease;
+
+  svg {
+    font-size: 13px;
+    flex-shrink: 0;
+  }
 
   &:hover {
-    border-color: #fff;
-    color: #fff;
+    color: #e53935;
+    border-color: #e53935;
   }
 `

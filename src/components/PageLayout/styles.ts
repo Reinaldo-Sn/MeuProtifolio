@@ -26,7 +26,7 @@ export const ContentBox = styled.div`
   width: calc(100% - 40px);
   height: 720px;
   overflow-y: auto;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.8);
   padding: 60px 60px 80px;
 
   @media (max-width: 1024px) {

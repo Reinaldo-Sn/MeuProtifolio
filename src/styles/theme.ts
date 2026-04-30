@@ -12,13 +12,13 @@ export const colors = {
   overlay: {
     light: 'rgba(0, 0, 0, 0.2)',
     medium: 'rgba(0, 0, 0, 0.4)',
-    strong: 'rgba(0, 0, 0, 0.6)',
+    strong: 'rgba(0, 0, 0, 0.8)',
     heavy: 'rgba(0, 0, 0, 0.8)',
   },
 
   surface: {
-    card: 'rgba(0, 0, 0, 0.6)',
-    nav: 'rgba(0, 0, 0, 0.6)',
+    card: 'rgba(0, 0, 0, 0.8)',
+    nav: 'rgba(0, 0, 0, 0.8)',
     hover: 'rgba(255, 255, 255, 0.1)',
     border: 'rgba(255, 255, 255, 0.1)',
   },
@@ -31,7 +31,7 @@ export const colors = {
 }
 
 export const fonts = {
-  family: "'Open Sans', sans-serif",
+  family: "'Noto Sans JP', 'Open Sans', sans-serif",
   weight: {
     light: 300,
     regular: 400,

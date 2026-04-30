@@ -7,14 +7,13 @@ export const Nav = styled.nav<{ $isOpen: boolean }>`
   bottom: 80px;
   width: 280px;
   height: 720px;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.8);
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 30px 0;
   z-index: 1000;
 
-  /* Tablet e mobile: barra no topo */
   @media (max-width: 1024px) {
     top: 0;
     bottom: auto;
@@ -26,7 +25,7 @@ export const Nav = styled.nav<{ $isOpen: boolean }>`
     align-items: center;
     flex-wrap: nowrap;
     padding: 0 24px;
-    background-color: rgba(0, 0, 0, 0.85);
+    background-color: rgba(0, 0, 0, 0.8);
     backdrop-filter: blur(8px);
   }
 
@@ -58,10 +57,6 @@ export const Logo = styled.div`
   }
 `
 
-export const MiniLogo = styled.div`
-  display: none;
-`
-
 export const HamburgerButton = styled.button`
   display: none;
   background: none;
@@ -82,7 +77,6 @@ export const NavList = styled.ul<{ $isOpen: boolean }>`
   width: 100%;
   margin-top: 20px;
 
-  /* Tablet: links visíveis em linha */
   @media (max-width: 1024px) {
     display: flex;
     flex-direction: row;
@@ -93,7 +87,6 @@ export const NavList = styled.ul<{ $isOpen: boolean }>`
     gap: 4px;
   }
 
-  /* Mobile: dropdown com hamburger */
   @media (max-width: 767px) {
     display: ${({ $isOpen }) => ($isOpen ? 'block' : 'none')};
     position: absolute;
@@ -127,16 +120,19 @@ export const NavItem = styled.li`
     align-items: center;
     gap: 12px;
     padding: 14px 25px;
-    color: #aaa;
-    font-size: 14px;
-    font-weight: 600;
-    letter-spacing: 1px;
+    color: #888;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 2px;
     text-transform: uppercase;
-    transition: all 0.3s ease;
+    transition: all 0.25s ease;
+    border-left: 3px solid transparent;
 
-    span {
-      font-size: 18px;
-      min-width: 20px;
+    svg {
+      width: 17px;
+      height: 17px;
+      flex-shrink: 0;
+      transition: all 0.25s ease;
     }
 
     em {
@@ -145,48 +141,53 @@ export const NavItem = styled.li`
 
     &:hover,
     &.active {
-      color: #fff;
-      border-left: 3px solid #ffffff;
+      color: #e53935;
+      border-left-color: #e53935;
       padding-left: 22px;
+
+      svg {
+        filter: drop-shadow(0 0 6px rgba(229, 57, 53, 0.6));
+      }
     }
   }
 
-  /* Tablet: links em linha, indicador embaixo */
   @media (max-width: 1024px) {
     width: auto;
 
     a {
       padding: 20px 14px;
-      gap: 8px;
+      gap: 7px;
       border-left: none !important;
-
-      span {
-        font-size: 15px;
-      }
+      border-bottom: 3px solid transparent;
 
       &:hover,
       &.active {
-        color: #fff;
+        color: #e53935;
         border-left: none !important;
-        border-bottom: 2px solid #ffffff;
+        border-bottom-color: #e53935;
         padding-left: 14px;
-        padding-bottom: 18px;
+        padding-bottom: 17px;
+
+        svg {
+          filter: drop-shadow(0 0 6px rgba(229, 57, 53, 0.6));
+        }
       }
     }
   }
 
-  /* Mobile: volta ao layout em lista */
   @media (max-width: 767px) {
     width: 100%;
 
     a {
       padding: 14px 25px;
       gap: 12px;
+      border-bottom: none !important;
+      border-left: 3px solid transparent !important;
 
       &:hover,
       &.active {
         border-bottom: none !important;
-        border-left: 3px solid #ffffff !important;
+        border-left-color: #e53935 !important;
         padding-left: 22px;
         padding-bottom: 14px;
       }
